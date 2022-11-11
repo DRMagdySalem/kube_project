@@ -1,1 +1,16 @@
 <paste log output from Kubernetes-mediated prediction, here>
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kube-proj   1/1     1            1           42m
+
+NAME                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/kube-proj-7db945c845   1         1         1       42m
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   102m
+
+NAME                             READY   STATUS    RESTARTS      AGE
+pod/kube-proj-7db945c845-dqqhq   1/1     Running   1 (22m ago)   42m
+Forwarding from 0.0.0.0:8000 -> 80
+Handling connection for 8000
+Handling connection for 8000
+Handling connection for 8000
