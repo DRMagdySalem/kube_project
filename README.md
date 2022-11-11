@@ -1,53 +1,30 @@
-<include a CircleCI status badge, here>
+circleci badge :
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/DRMagdySalem/kube_project/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/DRMagdySalem/kube_project/tree/main)
 
-## Project Overview
+in this Project ; our target was to operationalize machine learning microservice using docker and kubernetes .
+let's get a walk through the project and the steps we passed : 
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
+1) we started by ceating an environment and setting up this environment with all needed dependencies that we could need though our path .
+used command: 
+-command: | python3 -m venv venv  : create virtual environment 
+-source ~/.devops/bin/activate : activate the virtual environment
+-make install : install the needed dependencies listed in the "requirements.txt" file 
+2) then we used linting facilities of pylint and hadolint to rate our code and check for errors .
+used command : Make Lint 
+3) after completing the "run_docker.sh" and "app.py"  files we ran the docker script through :./run_docker.sh to build the docker image and run the built image 
+files: 
+run_docker.sh : contains the commands for building and running the needed docker image 
+app.py : carry the logig needed for predictions API operation which is the project target .
+4) after running the image we used the ./make_prediction.sh script to test the logic and the functionality of the app and the built image .
+we saved also an output for the prediction process in : output_txt_files/docker_out.txt 
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
+5) after successfull build we moved to the step of publishing the image to docker hub through ./upload_docker.sh after adding the tag , 
+the authentication is done through my terminal not to expose the user and passowrd but you can find the image on : 
+https://hub.docker.com/repository/docker/magdysalemm/kube_proj
 
-### Project Tasks
-
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
-
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
-
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
-
----
-
-## Setup the Environment
-
-* Create a virtualenv with Python 3.7 and activate it. Refer to this link for help on specifying the Python version in the virtualenv. 
-```bash
-python3 -m pip install --user virtualenv
-# You should have Python 3.7 available in your host. 
-# Check the Python path using `which python3`
-# Use a command similar to this one:
-python3 -m virtualenv --python=<path-to-Python3.7> .devops
-source .devops/bin/activate
-```
-* Run `make install` to install the necessary dependencies
-
-### Running `app.py`
-
-1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
-
-### Kubernetes Steps
-
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
-
+6) after that we moved to creating a kubernetes cluster using " minikube start " command after installing minikube and kubectl  .
+7) then we used the run_kubernetes.sh script to Run the Docker Hub container with kubernetes and Forward the container port to a host .
+8) and we tested again the prediction through the make_prediction script and saved the output to : output_txt_files/kubernetes_out.txt
+9) we also created the .circleci directory carrying the config.yml file to test the build though circleci and passed as in the following badge :
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/DRMagdySalem/kube_project/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/DRMagdySalem/kube_project/tree/main)
